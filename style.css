@@ -1,0 +1,169 @@
+:root {
+    --bg-color: #6D84B0; /* The requested blue background */
+    --surface-color: #ffffff;
+    --text-color: #1a1a1a;
+    --border-color: #cccccc;
+    --highlight-color: #E3F2FD;
+    --button-bg: #f8f9fa;
+    --button-hover: #e9ecef;
+    --button-active: #dee2e6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --font-family: 'Roboto', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+header label {
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.editor-container {
+    position: relative;
+    width: 100%;
+}
+
+#editor {
+    width: 100%;
+    min-height: 300px;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    font-size: 18px;
+    font-family: inherit;
+    resize: vertical;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s;
+}
+
+#editor:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+.controls-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--surface-color);
+    padding: 12px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+button {
+    background-color: var(--button-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+button:active {
+    background-color: var(--button-active);
+}
+
+#copyAllBtn {
+    background-color: #fce4ec; /* light pinkish as from PyQt logic */
+    border-color: #f8bbd0;
+    color: #880e4f;
+}
+#copyAllBtn:hover {
+    background-color: #f8bbd0;
+}
+
+.keyboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+    background: var(--surface-color);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.key-btn {
+    font-size: 24px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Suggestion Popup */
+.suggestion-popup {
+    position: absolute;
+    top: 100%; /* Will be dynamically updated in JS based on cursor */
+    left: 0;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    z-index: 100;
+    max-height: 200px;
+    min-width: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.suggestion-item:hover, .suggestion-item.active {
+    background-color: var(--highlight-color);
+}

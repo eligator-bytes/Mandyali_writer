@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandyali Writer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Mandyali Writer</h1>
+            <div class="toggles">
+                <label>
+                    <input type="checkbox" id="transliterationToggle" checked>
+                    Show Transliteration on Hover
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <div class="editor-container">
+                <div id="suggestionPopup" class="suggestion-popup" style="display: none;"></div>
+                <textarea id="editor" placeholder="Start typing here..."></textarea>
+            </div>
+
+            <div class="controls-row">
+                <button id="matraToggleBtn">Show Matras (मात्राएं)</button>
+                <button id="aaMatraBtn" title="aa">ा</button>
+                <button id="iMatraBtn" title="i">ि</button>
+                <div class="spacer"></div>
+                <button id="copyAllBtn">Copy All</button>
+            </div>
+
+            <div id="keyboard" class="keyboard-grid">
+                <!-- Keyboard buttons will be injected by app.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="transliteration.js"></script>
+    <script src="dictionary.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
