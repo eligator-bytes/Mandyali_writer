@@ -12,9 +12,11 @@ const mappedConsonants = consonants.map(c => window.englishToDevanagari(c) || c)
 
 const vowels = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ए', 'ऐ', 'ओ', 'औ', 'अं', 'अः'];
 const matras = ['ा', 'ि', 'ी', 'ु', 'ू', 'ृ', 'े', 'ै', 'ो', 'ौ', 'ं', 'ः', 'ँ', '्'];
+const punctuations = ['।', '॥', ',', '.', '?', '!', '-'];
 
 let showingMatras = false;
 let showTooltips = true;
+let dialectSuggestionsEnabled = true;
 
 const dictManager = new DictionaryManager();
 let currentEnglishWord = "";
@@ -26,6 +28,7 @@ const elements = {
     keyboard: document.getElementById('keyboard'),
     suggestionPopup: document.getElementById('suggestionPopup'),
     transliterationToggle: document.getElementById('transliterationToggle'),
+    dialectModeBtn: document.getElementById('dialectModeBtn'),
     matraToggleBtn: document.getElementById('matraToggleBtn'),
     copyAllBtn: document.getElementById('copyAllBtn'),
     aaMatraBtn: document.getElementById('aaMatraBtn'),
@@ -40,7 +43,7 @@ async function init() {
 
 function buildKeyboard() {
     elements.keyboard.innerHTML = '';
-    const texts = showingMatras ? matras : [...vowels, ...mappedConsonants];
+    const texts = (showingMatras ? matras : [...vowels, ...mappedConsonants]).concat(punctuations);
 
     texts.forEach(text => {
         const btn = document.createElement('button');
@@ -68,6 +71,16 @@ function setupEventListeners() {
     elements.transliterationToggle.addEventListener('change', (e) => {
         showTooltips = e.target.checked;
         buildKeyboard();
+    });
+
+    elements.dialectModeBtn.addEventListener('click', () => {
+        dialectSuggestionsEnabled = !dialectSuggestionsEnabled;
+        elements.dialectModeBtn.textContent = dialectSuggestionsEnabled ? "Dialect Suggestions: ON" : "Dialect Suggestions: OFF";
+        if (!dialectSuggestionsEnabled) {
+            hidePopup();
+        } else {
+            updatePopupState();
+        }
     });
 
     elements.matraToggleBtn.addEventListener('click', () => {
@@ -167,7 +180,7 @@ function insertDevanagariChar(char) {
 }
 
 function updatePopupState() {
-    if (!currentDevWord) {
+    if (!currentDevWord || !dialectSuggestionsEnabled) {
         hidePopup();
         return;
     }
